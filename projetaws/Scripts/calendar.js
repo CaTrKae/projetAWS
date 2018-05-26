@@ -95,7 +95,7 @@ function showMonth(index) {
       return "Octobre";
       break;
     case "11":
-      return "Septembre";
+      return "Novembre";
       break;
     case "12":
       return "Décembre";
