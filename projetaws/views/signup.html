@@ -1,0 +1,30 @@
+{% extends "parentPage.html" %}
+{% block body %}
+
+<h2>
+	Hi and welcome to our Calendar !
+</h2>
+
+
+</br>
+
+<div class="erreur">
+{{message}}
+</div>
+</br>
+	<form id="register" method="post">
+		Login :</br>
+  		<input type="text" name="login" placeholder="login" required> 
+  		</br>
+      	Password :</br>
+  		<input type="password" name="password" placeholder="password" required>
+      	</br>
+      	Name (the one others will see) :</br>
+      <input type="text" name="name" placeholder="name" required>
+      </br></br>
+  <input type="submit" value="Create your account !">
+</form>
+
+
+
+{% endblock %}

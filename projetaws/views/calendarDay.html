@@ -1,0 +1,36 @@
+{% extends "parentPage.html" %}
+{% block body %}
+	<div class="currentDay">
+		{{ jourNb | showDay }} {{ day }} {{ month | showMonth }} {{year}}
+	</div>
+
+<form action="/prevWeek" method="post">
+      <input type="hidden" name="dateAct" value="{{jours[-1]}}">
+<input type="submit" class="glyphicon glyphicon-chevron-left" value="Semaine précédente">
+</form>
+
+
+<form action="/nextWeek" method="post">
+      <input type="hidden" name="dateAct" value="{{jours[7]}}">
+<input type="submit" class="glyphicon glyphicon-chevron-right" value="Semaine suivante">
+</form> 
+
+	<div id="grilleDay" class="wrapper">
+		{% for hour in jour %}
+			{% for half in hour%}
+			<div class="day" class=half>
+				{{ jour.indexOf(hour) }}h{{ hour.indexOf(half) * 30 if hour.indexOf(half) == 1 else hour.indexOf(half)+"0" }}
+				 : {{ half.toString() }}
+			 </div>
+			{% endfor %}
+		{% endfor %}
+	</div>
+{% endblock %}
+
+
+
+
+
+
+
+

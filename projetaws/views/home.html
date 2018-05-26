@@ -1,0 +1,205 @@
+{% extends "parentPage.html" %}
+
+<!-- <head>
+		<meta charset="utf-8">
+		<title>Calendar - Version1</title>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+		<link rel="stylesheet" type="text/css" href="/CSS/calendar.css"/>
+
+		<script src="/libs/jquery/dist/jquery.min.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	</head> -->
+
+{% block css %}
+  	<link rel="stylesheet" href="/CSS/week.css">
+{% endblock %}
+
+{% block body %}
+
+<h2> {{ month | showMonth }} {{year}} </h2>
+
+ <!-- <h3>
+<a href="/prevWeek"><span class="glyphicon glyphicon-chevron-left"></span></a>
+<a href="/nextWeek"><span class="glyphicon glyphicon-chevron-right"></span></a>
+</h3> -->
+
+<form action="/prevWeek" method="post">
+      <input type="hidden" name="dateAct" value="{{jours[-1]}}">
+<button type="submit" value="Semaine précédente"><span class="glyphicon glyphicon-chevron-left"></span></button>
+</form>
+
+
+<form action="/nextWeek" method="post">
+      <input type="hidden" name="dateAct" value="{{jours[7]}}">
+<button type="submit" value="Semaine suivante"><span class="glyphicon glyphicon-chevron-right" ></span></button>
+</form>
+
+<!-- <span>Jour précédent : {{jours[-1]}} Jour suivant : {{jours[7]}}</span>  -->
+
+<div id="grille" class="wrapper">
+	<!-- L'entête ***********************-->
+	{% for day in week %}
+		<div class="row days">
+			<span>{{ week.indexOf(day) | showDay }}</span>
+			<span></br>{{ jours[week.indexOf(day)] }}</span>
+			 <!-- <span>{{ jour + (jourNb - week.indexOf(day)) }}</span> -->
+
+			{% if (week.indexOf(day)+1) == jourNb %}
+				<!-- <span><b>TODAY</b></span> -->
+			{% endif %}
+		</div>
+	{% endfor %}
+
+ <!-- 
+	{% for day in week %}
+		<div class="row">
+			<div class="jour" value1="{{ jours[week.indexOf(day)]}}/{{month}}/{{year}}" value2="{{week.indexOf(day)}}">
+				{% for hour in day %}
+				{% if events[week.indexOf(day)].length == 0 or (day.indexOf(hour) < events[week.indexOf(day)][0].timeBegin or day.indexOf(hour) >= events[week.indexOf(day)][0].timeEnd) %}
+					<div class="hour {{ day.indexOf(hour)}}">{{ day.indexOf(hour)}}h</div>
+				{% endif %}
+
+
+				{% if (day.indexOf(hour) > events[week.indexOf(day)][0].timeBegin) and (day.indexOf(hour) < events[week.indexOf(day)][0].timeEnd) %}
+					<div class="hour event {{ day.indexOf(hour)}}">{{ day.indexOf(hour)}}h</div>
+					
+				
+				{% endif %}
+
+				{% for event in events[week.indexOf(day)]%}
+						{% if day.indexOf(hour) == event.timeBegin %}
+							<div class="hour event {{ day.indexOf(hour)}}" value="{{events[week.indexOf(day)].length }}">
+								{{ day.indexOf(hour)}}h:Event={{event.title}}<br>Owner:{{event.owner}}
+							</div>
+						{% endif %}
+				{% endfor %}
+				{% endfor %}
+			</div>
+		</div>
+	{% endfor %}
+
+
+-->
+
+
+{% for day in week %}
+		<div class="row">
+			<div class="jour" value1="{{ jours[week.indexOf(day)]}}/{{month}}/{{year}}" value2="{{week.indexOf(day)}}">
+				{% for hour in day %}
+
+				{% if events[week.indexOf(day)].length == 0 or (day.indexOf(hour) < events[week.indexOf(day)][0].timeBegin or day.indexOf(hour) >= events[week.indexOf(day)][0].timeEnd) %}
+					<div class="hour {{ day.indexOf(hour)}}">{{ day.indexOf(hour)}}h</div>
+				{% endif %}
+
+				{% for event in events[week.indexOf(day)]%}
+						{% if day.indexOf(hour) in range(event.timeBegin, event.timeEnd)%}
+							<div class="hour event {{ day.indexOf(hour)}}" value="{{events[week.indexOf(day)].length }}">
+								{{ day.indexOf(hour)}}h {{event.title}}<br>Appartient à : {{event.owner}}
+							</div>
+						{% endif %}
+					{% endfor %}
+				{% endfor %}
+				
+			</div>
+		</div>
+	{% endfor %}
+
+
+<!--
+
+	{% for day in week %}
+		<div class="row">
+			<div class="jour" value1="{{ jours[week.indexOf(day)]}}/{{month}}/{{year}}" value2="{{week.indexOf(day)}}">
+				{% for hour in day %}
+				{% if events[week.indexOf(day)].length == 0 or (day.indexOf(hour) < events[week.indexOf(day)][0].timeBegin or day.indexOf(hour) >= events[week.indexOf(day)][0].timeEnd) %}
+					<div class="hour {{ day.indexOf(hour)}}">{{ day.indexOf(hour)}}h</div>
+				{% endif %}
+				{% for event in events[week.indexOf(day)]%}
+						{% if day.indexOf(hour) in range(event.timeBegin, event.timeEnd)%}
+							<div class="hour event {{ day.indexOf(hour)}}" value="{{events[week.indexOf(day)].length }}">{{ day.indexOf(hour)}}h:Event={{event.title}}<br>Owner:{{event.owner}}</div>
+						{% endif %}
+					{% endfor %}
+				{% endfor %}
+			</div>
+		</div>
+	{% endfor %}
+-->
+
+<!--
+
+ 
+{% for day in week %}
+		<div class="row">
+			<div class="jour" value1="{{ jours[week.indexOf(day)]}}/{{month}}/{{year}}" value2="{{week.indexOf(day)}}">
+				{% for hour in day %}
+				{% if events[week.indexOf(day)].length == 0 or (day.indexOf(hour) < events[week.indexOf(day)][0].timeBegin or day.indexOf(hour) >= events[week.indexOf(day)][0].timeEnd) %}
+					<div class="hour {{ day.indexOf(hour)}}">{{ day.indexOf(hour)}}h</div>
+				{% endif %}
+
+
+				
+				
+
+				{% for event in events[week.indexOf(day)]%}
+						{% if day.indexOf(hour) == event.timeBegin %}
+							<div class="hour event {{ day.indexOf(hour)}}" value="{{events[week.indexOf(day)].length }}">
+								{{ day.indexOf(hour)}}h:Event={{event.title}}<br>Owner:{{event.owner}}
+							</div>
+						{% endif %}
+				{% endfor %}
+				{% endfor %}
+			</div>
+		</div>
+	{% endfor %}
+
+-->
+
+					  <!-- <div class="modal fade" id="createEvent" role="dialog">
+					  	<div  id="createEvent" class="modal">
+					    <div class="modal-dialog">
+
+
+					      <div class="evenement modal-content">
+					        	<input id="titleEvent" type="text" name="titleEvent" placeholder="Title">
+								<input class="heureDébut" name="hourBegin" type="hidden"></p>
+								<input class="heureFin" name="hourEnd" type="hidden"></p>
+								<input id="saveEvent" type="submit">
+							</form>
+
+							<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+
+					        </div>
+
+					    </div>
+					  </div>
+
+					</div> -->
+
+	<div id="createEvent" class="modal">
+		<div class="evenement modal-content">
+			<input id="jour" name="jour" type="hidden">
+			<input id="titleEvent" type="text" name="titleEvent" placeholder="Title">
+			<input class="heureDébut" name="hourBegin" type="hidden"></p>
+			<input class="heureFin" name="hourEnd" type="hidden"></p>
+			<input id="saveEvent" type="submit">
+		</div>
+	</div>
+
+	<div id="showEvent" class="modal">
+		<div class="evenement modal-content">
+			<p id="name"></p>
+			<p id="owner"></p>
+			<p id="dateBegin"></p>
+			<p id="timeBegin"></p>
+		</div>
+	</div>
+</div>
+
+
+
+{% block js %}
+	<script type="text/javascript" src="/scripts/home_client.js"></script>
+{% endblock %}
+
+{% endblock %}

@@ -1,0 +1,61 @@
+.row {
+	text-align: center;
+	margin: 2%;
+	padding-bottom: 3.5%
+}
+.modal-backdrop {
+  z-index: -1;
+}
+.jour, .days{
+	display: inline-block;
+	float: left;
+	width: 100%;
+
+	border: solid;
+	border-radius: 5%;
+	border-color: purple;
+	position: relative;
+	min-height: inherit;
+}
+
+.surlignement {
+	background-color: purple;
+	color: white;
+}
+
+a {
+	text-decoration: none;
+}
+a:hover {
+	text-decoration: none;
+}
+
+.modal {
+	display: none;
+	position: fixed;
+	z-index: 1;
+	overflow: auto;
+	data-backdrop: true;
+}
+
+.modal-content {
+	border: 1px solid purple;
+	width: 100%;
+	background-color: white;
+	color: purple;
+	padding: 5%;
+}
+
+
+#month
+{
+	width: 300%;
+}
+.event {
+	background-color: grey;
+	display: block;
+}
+.hour {
+	/*width: 14%;*/
+	height: 40px;
+}

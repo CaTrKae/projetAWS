@@ -1,0 +1,16 @@
+{% extends "parentPage.html" %}
+{% block body %}
+
+ 
+   <table>
+      {% for x in rows %}
+      <tr {% if x.login == current.login %}class="current"{% endif %}>
+        <td>{{ x.login }}</td>
+        <td>{{ x.pass }}</td>
+        <td>{{ x.name }}</td>
+      </tr>
+      {% endfor %}
+    </table>
+
+
+{% endblock %}
